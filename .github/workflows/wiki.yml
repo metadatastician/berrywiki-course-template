@@ -23,11 +23,11 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      # PIN-ME: replace @main with a commit SHA of metadatastician/berrywiki.
-      # The Action builds its CLI from whatever revision you pin it at and
-      # caches the binary on that commit, so a pinned workflow restores a
-      # cached binary while @main rebuilds whenever berrywiki moves.
-      - uses: metadatastician/berrywiki@main
+      # Pinned to a commit, not a branch. The Action builds its CLI from
+      # whatever revision it is pinned at and caches the binary on that commit,
+      # so this restores a cached binary on every run after the first; @main
+      # would rebuild whenever berrywiki moves. Bump it deliberately.
+      - uses: metadatastician/berrywiki@0b49e2b2a378ccb2fed76a66908e50f1e9524184 # berrywiki check
         with:
           path: wiki
           # Set this to 'true' once your tree is clean and you want it to stay

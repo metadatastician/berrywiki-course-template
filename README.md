@@ -127,10 +127,11 @@ Warnings — a broken link, a missing parent — do not fail the build by defaul
 because a wiki that is still being written has them. Set `strict: 'true'` in the
 workflow once your tree is clean and you want it to stay that way.
 
-**Before you rely on it, pin it.** The workflow ships with
-`uses: metadatastician/berrywiki@main`; replace `@main` with a commit SHA. The
-Action builds its CLI from whatever revision you pinned it at, so a pinned
-workflow also restores a cached binary instead of rebuilding.
+**It is pinned to a commit, not a branch,** and should stay that way. The
+Action builds its CLI from whatever revision it is pinned at and caches the
+binary on that commit, so every run after the first restores a cached binary
+instead of rebuilding. `@main` would rebuild whenever BerryWiki moves. Bump the
+pin when you mean to.
 
 If you do not want any of this, delete `.github/workflows/wiki.yml`. The wiki
 is unaffected.
