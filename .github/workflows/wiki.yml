@@ -1,0 +1,36 @@
+# SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell
+# SPDX-License-Identifier: CC-BY-SA-4.0
+#
+# Checks the structure of the course wiki in `wiki/` on every push and pull
+# request: broken links, missing parents, cycles, duplicate ids.
+#
+# You do not have to install anything. The check runs entirely on GitHub's
+# runners. If you do not want it, delete this file — the wiki still works.
+
+name: wiki
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: structure check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      # PIN-ME: replace @main with a commit SHA of metadatastician/berrywiki.
+      # The Action builds its CLI from whatever revision you pin it at and
+      # caches the binary on that commit, so a pinned workflow restores a
+      # cached binary while @main rebuilds whenever berrywiki moves.
+      - uses: metadatastician/berrywiki@main
+        with:
+          path: wiki
+          # Set this to 'true' once your tree is clean and you want it to stay
+          # that way: it fails the build on warnings (a broken link, a missing
+          # parent) as well as on errors (a duplicate id).
+          strict: 'false'

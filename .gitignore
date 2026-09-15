@@ -1,0 +1,5 @@
+# BerryWiki keeps no application state in the wiki tree, but if you run it
+# from this directory these are the things you do not want committed.
+.DS_Store
+Thumbs.db
+*~
